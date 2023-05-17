@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "isolatedModules": true
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "paneron-for-tests/",
+    "src/*.test.*",
+    "spec/**/*.ts",
+    "test/**/*.ts"
+  ]
+}

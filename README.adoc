@@ -1,0 +1,25 @@
+= Paneron extension for Written Language Conversion System Registry
+
+ifdef::env-github[]
+image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/test.yml/badge.svg[
+  "Test Status",
+  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/test.yml"]
+image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/build.yml/badge.svg[
+  "Build Status",
+  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/build.yml"]
+image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/audit.yml/badge.svg[
+  "Audit Status",
+  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/audit.yml"]
+image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/release.yml/badge.svg[
+  "Release Status",
+  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/release.yml"]
+image:https://img.shields.io/github/v/release/paneron/extension-wlcs-registry?display_name=tag&include_prereleases&sort=semver[
+  GitHub release (latest SemVer including pre-releases),
+  link="https://www.npmjs.com/package/@paneron/extension-wlcs-registry"
+]
+endif::[]
+
+== Background
+
+This Paneron extension implements the Registry for
+https://www.iso.org/standard/78143.html[ISO 24229^].

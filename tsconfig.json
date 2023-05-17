@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "experimentalDecorators": true,
+
+    "outDir": "dist",
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@": ["src/plugin"],
+      "@/*": ["src/*"]
+    },
+    "allowJs": false,
+    "jsx": "react",
+    "newLine": "lf"
+  },
+  "include": [
+    "**.json",
+    "*.ts",
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "compiled",
+    "backup"
+  ],
+  "ts-node": {
+    "swc": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    },
+    "files": true
+  }
+}

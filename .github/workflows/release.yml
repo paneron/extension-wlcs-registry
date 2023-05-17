@@ -1,0 +1,144 @@
+name: release
+
+on:
+  workflow_call:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      next_version:
+        description: |
+          Next release version. Possible values: x.y.z, major, minor, patch
+        required: true
+        default: 'skip'
+      # XXX: does not skip for some reason
+      # skip_tests:
+      #   description: |
+      #     Skip tests iff === 'true'
+      #   required: true
+      #   default: 'false'
+
+env:
+  CACHE_DIR: installs
+  MAIN_PACKAGE_PATH: .
+
+jobs:
+  tests:
+    # XXX: does not skip for some reason
+    # if: github.events.inputs.skip_tests != 'true'
+    uses: ./.github/workflows/tests.yml
+
+  publish:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['16.x']
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Calculate build-cache key
+        # Because the exact same hashFiles invocation produces different
+        # results down the file
+        id: build-cache-key
+        run: |
+          if command -v shasum; then sum() { shasum -a 256 "$@"; } ; else sum() { sha256sum "$@"; }; fi
+          fragment=$(< package.json command grep 'version"\|"name"\|"files"\|"main"\|"build' | sum | command head -c8)
+          echo "key=build-${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('**/src/**', '**/.swcrc', '**/.npmrc', '**/tsconfig*.json', '**/pnpm-lock.yaml', '.github/workflows/build.yml') }}-${fragment}" | tee -a $GITHUB_OUTPUT
+        shell: bash
+
+      - uses: actions/setup-node@v3
+        id: setup-node
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      # See: https:
+        # //github.com/pnpm/action-setup#use-cache-to-reduce-installation-time
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/.npmrc', '**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      # For rsync support in Windows
+      - uses: GuillaumeFalourd/setup-rsync@v1.1
+        if: startsWith(runner.os, 'windows')
+
+      - name: Restore cache
+        id: build_cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CACHE_DIR }}
+          key: ${{ steps.build-cache-key.outputs.key }}
+
+      - name: Restore cache to working directory
+        shell: bash
+        run: |
+          echo ls -la ${{ env.CACHE_DIR }}/
+          ls -la ${{ env.CACHE_DIR }}/
+          echo ls -la ${{ env.CACHE_DIR }}/*
+          ls -la ${{ env.CACHE_DIR }}/*
+          echo ls -la .
+          ls -la .
+          for i in dist; do \
+            echo rsync -a ${{ env.CACHE_DIR }}/"${MAIN_PACKAGE_PATH}/$i" "${MAIN_PACKAGE_PATH}/"; \
+            rsync -a ${{ env.CACHE_DIR }}/"${MAIN_PACKAGE_PATH}/$i" "${MAIN_PACKAGE_PATH}/"; \
+          done
+          echo ls -la .
+          ls -la .
+          echo ls -la "${MAIN_PACKAGE_PATH}"/dist
+          ls -la "${MAIN_PACKAGE_PATH}"/dist
+          echo ls -la "${MAIN_PACKAGE_PATH}"/dist/*
+          ls -la "${MAIN_PACKAGE_PATH}"/dist/*
+
+      - name: Create a new version
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.next_version != 'skip' }}
+        shell: bash
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+          cd "${MAIN_PACKAGE_PATH}"
+          pnpm version --new-version ${{ github.event.inputs.next_version }}
+          git add -u
+          git commit -m "chore: Release ${{ github.event.inputs.next_version }}"
+          git tag -a "${{ github.event.inputs.next_version }}" -mBump
+          # Push commit along with tag
+          git push origin --tags :
+
+      - name: Publish to npm
+        run: |
+          cd "${MAIN_PACKAGE_PATH}"
+          diff -u {,dist/}package.json | \
+            cp {,dist/}package.json
+          pnpm publish dist --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PANERON_CI_NPM_TOKEN }}
+
+  update-website:
+    needs: [publish]
+    uses: ./.github/workflows/update-website.yml
