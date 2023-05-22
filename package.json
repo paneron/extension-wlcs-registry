@@ -1,6 +1,6 @@
 {
   "name": "@paneron/extension-wlcs-registry",
-  "version": "0.0.1-dev1",
+  "version": "0.1.0",
   "description": "Paneron extension for working with the Written Language Conversion System registry",
   "main": "plugin.js",
   "repository": "https://github.com/paneron/extension-wlcs-registry",
