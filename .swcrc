@@ -5,13 +5,13 @@
   },
   "jsc": {
     "externalHelpers": false,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
       "@": [
-        "src/plugin"
+        "./plugin"
       ],
       "@/*": [
-        "src/*"
+        "./*"
       ]
     },
     "parser": {
