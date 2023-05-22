@@ -1,12 +1,9 @@
 = Paneron extension for Written Language Conversion System Registry
 
 ifdef::env-github[]
-image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/test.yml/badge.svg[
+image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/tests.yml/badge.svg[
   "Test Status",
-  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/test.yml"]
-image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/build.yml/badge.svg[
-  "Build Status",
-  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/build.yml"]
+  link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/tests.yml"]
 image:https://github.com/paneron/extension-wlcs-registry/actions/workflows/audit.yml/badge.svg[
   "Audit Status",
   link="https://github.com/paneron/extension-wlcs-registry/actions/workflows/audit.yml"]
