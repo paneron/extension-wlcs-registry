@@ -122,3 +122,18 @@ audit:
 ## Run security audit for npm packages, and output results as json
 audit-json:
 	$(NPM) audit --json
+
+.PHONY: create-version
+## Run *npm version --new-version $NEXT_VER # NEXT_VER = <version> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git
+create-version:
+	@if [[ -z "$${NEXT_VER:-}" ]]; then \
+		>&2 echo "NEXT_VER is required"; \
+		>&2 echo "Usage: make create-version NEXT_VER=<version>	"; \
+		>&2 echo "    where <version> = <semver> | major | minor | patch |"; \
+		>&2 echo "                      premajor | preminor | prepatch |"; \
+		>&2 echo "                      prerelease | from-git"; \
+		>&2 echo "Example: make create-version NEXT_VER=major"; \
+		exit 1; \
+	fi
+	$(NPM) version --new-version "$$NEXT_VER" -m "chore: Release %s"
+	@echo Run this to push all: git push origin --tags :
