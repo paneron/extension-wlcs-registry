@@ -37,11 +37,11 @@ devDependencies:
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@17.0.53)(react@17.0.2)
   '@riboseinc/paneron-extension-kit':
-    specifier: ^2.2.0
-    version: 2.2.0(@paneron/libmmel@0.1.3)(@riboseinc/isogit-lfs@0.2.0)(immer@9.0.21)(react-helmet@6.1.0)
+    specifier: 2.2.6
+    version: 2.2.6(@paneron/libmmel@0.1.3)(@riboseinc/isogit-lfs@0.2.0)(immer@9.0.21)(react-helmet@6.1.0)
   '@riboseinc/paneron-registry-kit':
-    specifier: 2.2.0
-    version: 2.2.0
+    specifier: 2.2.10
+    version: 2.2.10
   '@swc/cli':
     specifier: ^0.1.62
     version: 0.1.62(@swc/core@1.3.68)
@@ -1428,8 +1428,8 @@ packages:
       isomorphic-git: 1.23.0
     dev: true
 
-  /@riboseinc/paneron-extension-kit@2.2.0(@paneron/libmmel@0.1.3)(@riboseinc/isogit-lfs@0.2.0)(immer@9.0.21)(react-helmet@6.1.0):
-    resolution: {integrity: sha512-fYbejKKb//Nyp9DK01bwqPSH5MCNUZJxZZ7t2fZkpveU8WE7IX+GGt+amKLaaDDGmDvh1ePQhHX1cXD7dJGOag==}
+  /@riboseinc/paneron-extension-kit@2.2.6(@paneron/libmmel@0.1.3)(@riboseinc/isogit-lfs@0.2.0)(immer@9.0.21)(react-helmet@6.1.0):
+    resolution: {integrity: sha512-SQ7+RF1FVQ8h2DtYm+bGt5StcKiG+u3l70XawmZsH+x/1Oii51tPJ/wuyZL0Y7D2qatOHPVodZmKZk/Kd4Xy9g==}
     peerDependencies:
       '@paneron/libmmel': ~0.1.3
       '@riboseinc/isogit-lfs': 0.2.0
@@ -1442,8 +1442,8 @@ packages:
       react-helmet: 6.1.0(react@17.0.2)
     dev: true
 
-  /@riboseinc/paneron-registry-kit@2.2.0:
-    resolution: {integrity: sha512-DFGl/0Qmd3mwTKQRZusgB3w/O4AbQ5YZVWvuZAqSyAVP3mKHCjr+Y7pgcC1LbEfIRow9NhfRy+mHJefqt6Zd1w==}
+  /@riboseinc/paneron-registry-kit@2.2.10:
+    resolution: {integrity: sha512-fngHdppieNNVgJkVCVyaPJ9AeCyxln9wGwCp8t+FirvG+hzYKaoB7OIKnjkSL7LH+T4MMGT7JVq2gmBJc2F2Xg==}
     dev: true
 
   /@sideway/address@4.1.4:
