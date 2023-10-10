@@ -256,7 +256,7 @@ export const classesPresentation: Record<ItemClass, ClassPresentationConfigurati
   'authority' : {
   },
   'code-status' : {
-    name(itemData) {
+    name() {
       return '';
     },
   },
@@ -269,7 +269,7 @@ export const classesPresentation: Record<ItemClass, ClassPresentationConfigurati
         itemData.extension
       ].filter(Boolean).join('-');
     },
-    name(itemData) {
+    name() {
       return '';
     },
   },
@@ -279,17 +279,17 @@ export const classesPresentation: Record<ItemClass, ClassPresentationConfigurati
     identifier(itemData) {
       return itemData.type + itemData.targetSystem;
     },
-    name(itemData) {
+    name() {
       return '';
     },
   },
   'system-relation-type' : {
-    name(itemData) {
+    name() {
       return '';
     },
   },
   'system-status' : {
-    name(itemData) {
+    name() {
       return '';
     },
   },
