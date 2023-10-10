@@ -23,7 +23,11 @@ import {
   textInputProps
 } from '@/classes/common';
 
-import { classes } from '@/classes';
+import {
+  classes,
+  classesPresentation,
+} from '@/classes';
+
 import type {
   ItemClass,
   ItemMetaClass,
@@ -72,6 +76,7 @@ type MapSchema<T extends Record<string, keyof MapSchemaTypes>> = {
 
 export function ui(itemClassName: ItemClass) {
   const itemClass = classes[itemClassName];
+  const itemClassPresentation = classesPresentation[itemClassName];
 
   const itemFields = itemClass.fields;
 
@@ -114,10 +119,14 @@ export function ui(itemClassName: ItemClass) {
 
   const listPrinter: ListPrinter<ItemClassSchema> = {
     identifier(itemData) {
-      return itemData[identifierField.id] as string;
+      return typeof itemClassPresentation.identifier !== 'undefined' ?
+        itemClassPresentation.identifier(itemData) :
+        itemData[identifierField.id] as string;
     },
     name(itemData) {
-      return itemData.name as string;
+      return typeof itemClassPresentation.name !== 'undefined' ?
+        itemClassPresentation.name(itemData) :
+        itemData.name as string;
     },
   };
 

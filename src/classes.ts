@@ -73,6 +73,11 @@ export interface ClassConfiguration {
   interfaces: ItemMetaClass[];
 }
 
+export interface ClassPresentationConfiguration {
+  identifier?(itemData: any): string;
+  name?(itemData: any): string;
+}
+
 /**
  * First field is the ID field
  */
@@ -244,5 +249,48 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
         type  : 'text',
       },
     ],
+  },
+};
+
+export const classesPresentation: Record<ItemClass, ClassPresentationConfiguration> = {
+  'authority' : {
+  },
+  'code-status' : {
+    name(itemData) {
+      return '';
+    },
+  },
+  'spelling-system' : {
+    identifier(itemData) {
+      return [
+        itemData.languageCode,
+        itemData.scriptCode,
+        itemData.countryCode,
+        itemData.extension
+      ].filter(Boolean).join('-');
+    },
+    name(itemData) {
+      return '';
+    },
+  },
+  'system-code' : {
+  },
+  'system-relation' : {
+    identifier(itemData) {
+      return itemData.type + itemData.targetSystem;
+    },
+    name(itemData) {
+      return '';
+    },
+  },
+  'system-relation-type' : {
+    name(itemData) {
+      return '';
+    },
+  },
+  'system-status' : {
+    name(itemData) {
+      return '';
+    },
   },
 };
