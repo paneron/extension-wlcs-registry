@@ -5,7 +5,8 @@ on:
   workflow_dispatch:
 
 env:
-  CACHE_DIR: installs
+  PANERON_CACHE_DIR: installs
+  CACHE_DIR: dist
   CACHE_TEST_DIR: cache-test-e2e
   MAIN_PACKAGE_PATH: .
   PANERON_TEST_DIR_NAME: paneron-for-tests
@@ -92,7 +93,7 @@ jobs:
         id: paneron_build_cache
         uses: actions/cache@v3
         with:
-          path: ${{ env.CACHE_DIR }}
+          path: ${{ env.PANERON_CACHE_DIR }}
           key: build-${{ runner.os }}-${{ matrix.node }}-${{ matrix.paneron_ref }}-${{ hashFiles('.github/workflows/test-e2e.yml') }}
 
       - name: Check out Paneron repo
@@ -101,14 +102,14 @@ jobs:
         with:
           repository: 'paneron/paneron'
           fetch-depth: 1
-          path: ${{ env.CACHE_DIR }}/${{ env.PANERON_TEST_DIR_NAME }}
+          path: ${{ env.PANERON_CACHE_DIR }}/${{ env.PANERON_TEST_DIR_NAME }}
           ref: ${{ matrix.paneron_ref }}
 
       - name: Build Paneron cache
         if: ${{ steps.paneron_build_cache.outputs.cache-hit != 'true' && steps.test_cache.outputs.cache-hit != 'true' }}
         shell: bash
         run: |
-          pushd ${{ env.CACHE_DIR }}/${{ env.PANERON_TEST_DIR_NAME }}
+          pushd ${{ env.PANERON_CACHE_DIR }}/${{ env.PANERON_TEST_DIR_NAME }}
           # Work around node js 17+ OpenSSL
           if [[ ${{ matrix.node }} = 18* ]]; then \
             export NODE_OPTIONS=--openssl-legacy-provider; \
@@ -131,33 +132,12 @@ jobs:
         run: |
           sudo apt-get install -y xvfb
 
-      # For rsync support in Windows
-      - uses: GuillaumeFalourd/setup-rsync@v1.1
-        if: ${{ startsWith(runner.os, 'windows') && steps.test_cache.outputs.cache-hit != 'true' }}
-
       - name: Restore build cache
         if: steps.test_cache.outputs.cache-hit != 'true'
         uses: actions/cache@v3
         with:
           path: ${{ env.CACHE_DIR }}
           key: ${{ steps.build-cache-key.outputs.key }}
-
-      - name: Restore build cache to working directory
-        if: steps.test_cache.outputs.cache-hit != 'true'
-        shell: bash
-        run: |
-          echo ls -la ${{ env.CACHE_DIR }}/
-          ls -la ${{ env.CACHE_DIR }}/
-          echo ls -la ${{ env.CACHE_DIR }}/*
-          ls -la ${{ env.CACHE_DIR }}/*
-          for i in dist; do \
-            echo rsync -a ${{ env.CACHE_DIR }}/"${MAIN_PACKAGE_PATH}/$i" "${MAIN_PACKAGE_PATH}/"; \
-            rsync -a ${{ env.CACHE_DIR }}/"${MAIN_PACKAGE_PATH}/$i" "${MAIN_PACKAGE_PATH}/"; \
-          done
-          echo ls -la .
-          ls -la .
-          echo ls -la "${MAIN_PACKAGE_PATH}"/dist
-          ls -la "${MAIN_PACKAGE_PATH}"/dist
 
       - if: ${{ steps.test_cache.outputs.cache-hit != 'true' }}
         uses: GabrielBB/xvfb-action@v1.6

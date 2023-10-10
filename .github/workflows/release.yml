@@ -20,7 +20,7 @@ on:
       #   default: 'false'
 
 env:
-  CACHE_DIR: installs
+  CACHE_DIR: dist
   MAIN_PACKAGE_PATH: .
 
 jobs:
@@ -84,36 +84,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --strict-peer-dependencies
 
-      # For rsync support in Windows
-      - uses: GuillaumeFalourd/setup-rsync@v1.1
-        if: startsWith(runner.os, 'windows')
-
       - name: Restore cache
         id: build_cache
         uses: actions/cache@v3
         with:
           path: ${{ env.CACHE_DIR }}
           key: ${{ steps.build-cache-key.outputs.key }}
-
-      - name: Restore cache to working directory
-        shell: bash
-        run: |
-          echo ls -la ${{ env.CACHE_DIR }}/
-          ls -la ${{ env.CACHE_DIR }}/
-          echo ls -la ${{ env.CACHE_DIR }}/*
-          ls -la ${{ env.CACHE_DIR }}/*
-          echo ls -la .
-          ls -la .
-          for i in dist; do \
-            echo rsync -a ${{ env.CACHE_DIR }}/"${MAIN_PACKAGE_PATH}/$i" "${MAIN_PACKAGE_PATH}/"; \
-            rsync -a ${{ env.CACHE_DIR }}/"${MAIN_PACKAGE_PATH}/$i" "${MAIN_PACKAGE_PATH}/"; \
-          done
-          echo ls -la .
-          ls -la .
-          echo ls -la "${MAIN_PACKAGE_PATH}"/dist
-          ls -la "${MAIN_PACKAGE_PATH}"/dist
-          echo ls -la "${MAIN_PACKAGE_PATH}"/dist/*
-          ls -la "${MAIN_PACKAGE_PATH}"/dist/*
 
       - name: Create a new version
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.next_version != 'skip' }}
