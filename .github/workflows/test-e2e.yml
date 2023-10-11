@@ -119,8 +119,12 @@ jobs:
         shell: bash
         run: |
           pushd ${{ env.PANERON_CACHE_DIR }}/${{ env.PANERON_TEST_DIR_NAME }}
+
           # Work around node js 17+ OpenSSL
-          if [[ ${{ matrix.node }} = 18* ]]; then \
+          # see: https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported
+          node_major_version=${{ matrix.node }}
+          node_major_version=${node_major_version%%.*}
+          if (( node_major_version >= 17 )); then \
             export NODE_OPTIONS=--openssl-legacy-provider; \
           fi
           # NOTE: Switch to pnpm when Paneron switches to pnpm.
