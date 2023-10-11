@@ -62,10 +62,6 @@
       ]
     }
   },
-  "resolutions": {
-    "@types/react": "17.0.53",
-    "react": "17.0.2"
-  },
   "devDependencies": {
     "@blueprintjs/core": "~4.17.8",
     "@blueprintjs/datetime": "~4.4.27",
@@ -118,5 +114,16 @@
     "typescript": "^5.1.6",
     "use-debounce": "9.0.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "pnpm": {
+    "overrides": {
+      "@types/react": "17.0.53",
+      "get-func-name@<2.0.1": ">=2.0.1",
+      "react": "17.0.2",
+      "semver@<5.7.2": ">=5.7.2",
+      "semver@>=6.0.0 <6.3.1": ">=6.3.1",
+      "semver@>=7.0.0 <7.5.2": ">=7.5.2",
+      "word-wrap@<1.2.4": ">=1.2.4"
+    }
+  }
 }
