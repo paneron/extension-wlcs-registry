@@ -25,9 +25,8 @@ jobs:
           # - ubuntu-latest # XXX: Skipping Linux since e2e tests show tooling problems (#96)
           - windows-latest
         node:
-          - '18.x'
           - '20.x'
-        paneron_ref: ['1ab232b008ba9709c9a80512c0eceaeb525515bf']
+        paneron_ref: ['v2.2.4']
 
     steps:
       - name: Check out repo
