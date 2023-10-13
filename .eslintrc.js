@@ -123,7 +123,10 @@ var rules = {
   '@typescript-eslint/no-empty-function' : 'off',
   '@typescript-eslint/no-non-null-asserted-nullish-coalescing' : 'warn',
   'no-unused-vars' : 'off',
-  '@typescript-eslint/no-unused-vars' : 'warn',
+  '@typescript-eslint/no-unused-vars' : ['warn', {
+    "varsIgnorePattern": "^_",
+    "argsIgnorePattern": "^_" ,
+  }],
   '@emotion/jsx-import' : 'error',
   '@emotion/no-vanilla' : 'error',
   '@emotion/import-from-emotion' : 'error',
