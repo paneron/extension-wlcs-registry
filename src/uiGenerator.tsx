@@ -45,6 +45,7 @@ import type {
 
 // https://stackoverflow.com/questions/45771307/typescript-dynamically-create-interface
 export interface MapSchemaTypes {
+  uuid: string;
   string: string;
   text: string;
   textarea: string;
@@ -83,6 +84,14 @@ export function ui(itemClassName: ItemClass) {
   const interfaces = itemClass.interfaces;
 
   /** supplement itemFields with interfaces */
+  if (interfaces.includes('uuidentifiable')) {
+    itemFields.unshift({
+      id    : 'uuid',
+      title : 'UUID',
+      type  : 'uuid',
+    });
+  }
+
   if (interfaces.includes('remarkable')) {
     itemFields.push({
       id    : 'remarks',
@@ -150,6 +159,14 @@ export function ui(itemClassName: ItemClass) {
             {
               itemFields.map(field => {
                 switch (field.type) {
+                  case 'uuid': {
+                    return (
+                      <PropertyDetailView inline title={field.title} key={field.id}>
+                        {data[field.id] ? data[field.id] : <em>to be generated</em>}
+                      </PropertyDetailView>
+                    );
+                  }
+
                   case 'text': {
                     return (
                       <PropertyDetailView inline title={field.title} key={field.id}>
@@ -203,6 +220,15 @@ export function ui(itemClassName: ItemClass) {
           {
             itemFields.map(field => {
               switch (field.type) {
+                /** readonly */
+                case 'uuid': {
+                  return (
+                    <FormGroup label={`${field.title}:`} key={field.id}>
+                      {props.itemData[field.id] ? props.itemData[field.id] : <em>to be generated</em>}
+                    </FormGroup>
+                  );
+                }
+
                 case 'textarea': {
                   return (
                     <FormGroup label={`${field.title}:`} key={field.id}>

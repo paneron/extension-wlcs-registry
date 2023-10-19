@@ -1,6 +1,7 @@
 export type FieldName = string;
 
 export const itemMetaClasses = [
+  'uuidentifiable',
   'timestampable',
   'remarkable',
 ] as const;
@@ -8,6 +9,7 @@ export const itemMetaClasses = [
 export type ItemMetaClass = typeof itemMetaClasses[number];
 
 export const commonItemMetaClasses: ItemMetaClass[] = [
+  'uuidentifiable',
   'timestampable',
   'remarkable',
 ];
@@ -51,6 +53,7 @@ export type FieldTypeSpecialization =
   ItemClassType;
 
 export type FieldType =
+  'uuid' |
   'text' |
   'textarea' |
   'number' |
