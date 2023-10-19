@@ -158,6 +158,14 @@ export function ui(itemClassName: ItemClass) {
                     );
                   }
 
+                  case 'textarea': {
+                    return (
+                      <PropertyDetailView inline title={field.title} key={field.id}>
+                        {data[field.id]}
+                      </PropertyDetailView>
+                    );
+                  }
+
                   // TODO:
                   case 'itemClass': {
                     return (
