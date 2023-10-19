@@ -7,6 +7,11 @@ export const itemMetaClasses = [
 
 export type ItemMetaClass = typeof itemMetaClasses[number];
 
+export const commonItemMetaClasses: ItemMetaClass[] = [
+  'timestampable',
+  'remarkable',
+];
+
 export const itemClasses = [
   'authority',
   'code-status',
@@ -86,7 +91,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'Authority',
     description : 'Conversion System Authority',
     id          : 'authority',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id    : 'authorityIdentifier',
@@ -104,7 +109,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'Code Status',
     description : 'Conversion System Code Status',
     id          : 'code-status',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id    : 'codeStatus',
@@ -117,7 +122,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'Spelling System',
     description : 'Conversion Spelling System',
     id          : 'spelling-system',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id                 : 'languageCode',
@@ -150,7 +155,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'System Code',
     description : 'Conversion System Code',
     id          : 'system-code',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id    : 'code',
@@ -209,7 +214,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'Relation',
     description : 'Conversion System Relation',
     id          : 'system-relation',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id    : 'type',
@@ -228,7 +233,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'System Relation Type',
     description : 'Conversion System Relation Type',
     id          : 'system-relation-type',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id    : 'systemRelationType',
@@ -241,7 +246,7 @@ export const classes: Record<ItemClass, ClassConfiguration> = {
     title       : 'System Status',
     description : 'Conversion System Status',
     id          : 'system-status',
-    interfaces  : ['timestampable', 'remarkable'],
+    interfaces  : commonItemMetaClasses,
     fields      : [
       {
         id    : 'systemStatus',
