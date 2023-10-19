@@ -204,9 +204,11 @@ export function ui(itemClassName: ItemClass) {
                   // TODO:
                   case 'datetime': {
                     return (
-                      <PropertyDetailView inline title={field.title} key={field.id}>
-                        {data[field.id]}
-                      </PropertyDetailView>
+                        data[field.id] ?
+                        <PropertyDetailView inline title={field.title} key={field.id}>
+                          {data[field.id]}
+                        </PropertyDetailView> :
+                        <></>
                     );
                   }
                 }
