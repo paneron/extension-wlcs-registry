@@ -13,6 +13,7 @@ overrides:
   semver@>=7.0.0 <7.5.2: '>=7.5.2'
   word-wrap@<1.2.4: '>=1.2.4'
   '@babel/traverse@<7.23.2': '>=7.23.2'
+  axios@>=0.8.1 <1.6.0: '>=1.6.0'
 
 devDependencies:
   '@blueprintjs/core':
@@ -2432,8 +2433,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios@1.4.0:
-    resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
+  /axios@1.6.1:
+    resolution: {integrity: sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
@@ -2914,7 +2915,7 @@ packages:
       '@cucumber/messages': 21.0.1
       acorn: 7.4.1
       arrify: 2.0.1
-      axios: 1.4.0
+      axios: 1.6.1
       chai: 4.3.7
       chai-deep-match: 1.2.1(chai@4.3.7)
       chalk: 4.1.2
