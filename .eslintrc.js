@@ -163,6 +163,19 @@ module.exports = {
       rules : rules,
     },
     {
+      files : ["*.json"],
+      rules : {
+        "quotes" : [
+          "error",
+          "double",
+        ],
+        "quote-props" : [
+          "error",
+          "always",
+        ],
+      },
+    },
+    {
       "files"   : ["spec/**"],
       "plugins" : ["jest", "@emotion"],
       "extends" : ["plugin:jest/recommended", "plugin:jest/style"],
