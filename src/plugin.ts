@@ -1,18 +1,20 @@
-import { makeExtension } from '@riboseinc/paneron-extension-kit';
-import datasetInitializer from '@riboseinc/paneron-registry-kit/migrations/initial';
-import mainView from '@/RepoView';
+import { makeRegistryExtension, CRITERIA_CONFIGURATION } from '@riboseinc/paneron-registry-kit';
+import { itemClassConfiguration } from '@/registryConfig';
 
-export default makeExtension({
-  mainView,
-  name                   : 'Written Language Conversion System Registry',
-  requiredHostAppVersion : '^2.2.8',
-  datasetMigrations      : {},
-  datasetInitializer,
-  exportFormats          : {
-    // ['public-site']: {
-    //  name: "Public website",
-    //  description: "The current version of the register (excluding proposals), rendered in HTML and ready for web serving.",
-    //  exporter: exportPublicSite,
-    // },
-  },
+const defaultClassID = Object.keys(itemClassConfiguration)[0];
+const defaultCriteria = CRITERIA_CONFIGURATION['item-class'].toQuery(
+  { classID : defaultClassID },
+  { itemClasses : itemClassConfiguration },
+);
+
+const defaultSearchCriteria = {
+  require  : 'all',
+  criteria : [{ key : 'item-class', query : defaultCriteria }],
+} as const;
+
+export default makeRegistryExtension({
+  name                  : 'Written Language Conversion System Registry',
+  itemClassConfiguration,
+  defaultSearchCriteria : defaultSearchCriteria as any,
+  keyExpression         : 'obj.data.identifier || `${obj.data.terms?.[0]?.designation}-${obj.id}` || obj.id',
 });
