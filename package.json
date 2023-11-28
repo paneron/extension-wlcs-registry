@@ -24,7 +24,7 @@
     "build:decl:watch": "pnpm run build:decl --watch",
     "tsc": "tsc -p tsconfig.build.json",
     "build": "pnpm run build:cjs",
-    "build2": "pnpm run build:esm",
+    "build2": "pnpm run build; pnpm run build:esm",
     "prebuild": "rm -rf ${npm_package_dist_dir}/; mkdir ${npm_package_dist_dir}/; cp package.json ${npm_package_dist_dir}/;",
     "prebuild:watch": "pnpm run prebuild",
     "build:cjs": "swc ${npm_package_src_dir} --sync --ignore '*.test.*' --out-dir ${npm_package_dist_dir} --copy-files --extensions '.ts,.tsx,.js,.jsx,.json'",
