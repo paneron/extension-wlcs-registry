@@ -1,6 +1,6 @@
 var path = require('path');
 
-var rules = {
+var rulesForJs = {
   'quotes' : [
     'warn',
     'single',
@@ -58,16 +58,15 @@ var rules = {
       },
     },
   ],
-  'no-cond-assign'                  : [2, 'except-parens'],
+  'no-cond-assign' : [2, 'except-parens'],
   // "no-redeclare"   : [
   //   "error",
   //   {
   //     builtinGlobals : true,
   //   },
   // ],
-  'no-redeclare'                    : 'off',
-  '@typescript-eslint/no-redeclare' : ['error'],
-  'dot-notation'                    : [
+  'no-redeclare'   : 'off',
+  'dot-notation'   : [
     2,
     {
       allowKeywords : true,
@@ -119,21 +118,40 @@ var rules = {
       },
     },
   ],
-  'no-empty-function'                                          : 'off',
-  'react/prop-types'                                           : 'off',
-  'react/no-unknown-property'                                  : ['error', { ignore : ['css']}],
+  'no-empty-function' : 'off',
+  'no-unused-vars'    : 'off',
+};
+
+var rulesForTypescript = {
+  '@typescript-eslint/no-redeclare'                            : ['error'],
   '@typescript-eslint/no-empty-function'                       : 'off',
   '@typescript-eslint/no-non-null-asserted-nullish-coalescing' : 'warn',
-  'no-unused-vars'                                             : 'off',
   '@typescript-eslint/no-unused-vars'                          : ['warn', {
     varsIgnorePattern : '^_',
     argsIgnorePattern : '^_' ,
   }],
+};
+
+var rulesForReact = {
+  'react/prop-types'          : 'off',
+  'react/no-unknown-property' : ['error', { ignore : ['css']}],
+};
+
+var rulesForEmotion = {
   '@emotion/jsx-import'          : 'error',
   '@emotion/no-vanilla'          : 'error',
   '@emotion/import-from-emotion' : 'error',
   '@emotion/styled-import'       : 'error',
 };
+
+
+var rules = Object.assign(
+  {},
+  rulesForJs,
+  rulesForTypescript,
+  rulesForReact,
+  rulesForEmotion
+);
 
 module.exports = {
   'root' : true,
