@@ -18,19 +18,19 @@ overrides:
 devDependencies:
   '@blueprintjs/core':
     specifier: ~4.17.8
-    version: 4.17.8(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+    version: 4.17.8(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
   '@blueprintjs/datetime':
     specifier: ~4.4.27
-    version: 4.4.37(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+    version: 4.4.37(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
   '@blueprintjs/icons':
     specifier: ~4.14.5
     version: 4.14.5
   '@blueprintjs/popover2':
     specifier: ^1.13.12
-    version: 1.13.12(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+    version: 1.13.12(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
   '@blueprintjs/select':
     specifier: ~4.9.12
-    version: 4.9.24(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+    version: 4.9.24(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
   '@commitlint/cli':
     specifier: ^17.7.1
     version: 17.7.1(@swc/core@1.3.68)
@@ -141,16 +141,22 @@ devDependencies:
     version: 17.0.2
   react-resizable:
     specifier: ^3.0.5
-    version: 3.0.5(react-dom@17.0.2)(react@17.0.2)
+    version: 3.0.5(react-dom@16.14.0)(react@17.0.2)
   react-virtualized-auto-sizer:
     specifier: ^1.0.7
-    version: 1.0.20(react-dom@17.0.2)(react@17.0.2)
+    version: 1.0.20(react-dom@16.14.0)(react@17.0.2)
+  react-visual-diff:
+    specifier: ^0.4.3
+    version: 0.4.3(prop-types@15.8.1)(react-dom@16.14.0)(react@17.0.2)
   react-window:
     specifier: ^1.8.8
-    version: 1.8.9(react-dom@17.0.2)(react@17.0.2)
+    version: 1.8.9(react-dom@16.14.0)(react@17.0.2)
   rimraf:
     specifier: ^5.0.1
     version: 5.0.1
+  rough-notation:
+    specifier: ^0.5.1
+    version: 0.5.1
   run-script-os:
     specifier: ^1.1.6
     version: 1.1.6
@@ -711,7 +717,7 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@blueprintjs/core@4.17.8(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2):
+  /@blueprintjs/core@4.17.8(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-hPspPY3luquQlVBlEyJVQT6nYXNl+ABOcqXFiURaneFsweKh/cjlp0ERmiypVh4XsewzmpOa2REePtfI1defAw==}
     hasBin: true
     peerDependencies:
@@ -732,13 +738,13 @@ packages:
       normalize.css: 8.0.1
       popper.js: 1.16.1
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
       react-popper: 1.3.11(react@17.0.2)
-      react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
+      react-transition-group: 4.4.5(react-dom@16.14.0)(react@17.0.2)
       tslib: 2.5.0
     dev: true
 
-  /@blueprintjs/core@4.20.2(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2):
+  /@blueprintjs/core@4.20.2(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-5v4Nr0jozfAjiOkjY4zvt1XSpt4ldnrSaxtwo506S2cxJYfwFeMTmDshXNPFcc8L1fjZMxi0IWI2WABXzZXS6w==}
     hasBin: true
     peerDependencies:
@@ -759,13 +765,13 @@ packages:
       normalize.css: 8.0.1
       popper.js: 1.16.1
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
       react-popper: 1.3.11(react@17.0.2)
-      react-transition-group: 4.4.5(react-dom@17.0.2)(react@17.0.2)
+      react-transition-group: 4.4.5(react-dom@16.14.0)(react@17.0.2)
       tslib: 2.5.0
     dev: true
 
-  /@blueprintjs/datetime@4.4.37(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2):
+  /@blueprintjs/datetime@4.4.37(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-YJiWzUH1eefCMvvvdsLimrLZNk5XW1yTMK4OmX6BP+gAt/u7cNKyv+42XO4tlymeWRqT0K7HbQOPP4ybt/xzEw==}
     peerDependencies:
       '@types/react': ^16.14.32 || 17
@@ -775,12 +781,12 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@blueprintjs/core': 4.20.2(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+      '@blueprintjs/core': 4.20.2(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
       '@types/react': 17.0.53
       classnames: 2.3.2
       react: 17.0.2
       react-day-picker: 7.4.9(react@17.0.2)
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
       tslib: 2.5.0
     dev: true
 
@@ -800,7 +806,7 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@blueprintjs/popover2@1.13.12(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2):
+  /@blueprintjs/popover2@1.13.12(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-1pn7eRnI/FAqgJT0SDFJRUMKQnP1mhGGd7bOpCpg+Q2hiuk8YTlYClPgYneoRGtLhK3JLyby66UofdAyFklWWQ==}
     peerDependencies:
       '@types/react': ^16.14.32 || 17 || 18
@@ -810,19 +816,19 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@blueprintjs/core': 4.17.8(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+      '@blueprintjs/core': 4.17.8(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
       '@juggle/resize-observer': 3.4.0
       '@popperjs/core': 2.11.8
       '@types/react': 17.0.53
       classnames: 2.3.2
       dom4: 2.1.6
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@17.0.2)(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
+      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@16.14.0)(react@17.0.2)
       tslib: 2.5.0
     dev: true
 
-  /@blueprintjs/popover2@1.14.11(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2):
+  /@blueprintjs/popover2@1.14.11(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-5XAjeb2mlWjYXC0pqrNDLzHSsX85Zaiv8jixxUN9abarMUUFKGATgGF8MRsWTLAW94Gli6CB1lzVkrYkRHHf6Q==}
     peerDependencies:
       '@types/react': ^16.14.32 || 17 || 18
@@ -832,19 +838,19 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@blueprintjs/core': 4.20.2(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+      '@blueprintjs/core': 4.20.2(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
       '@juggle/resize-observer': 3.4.0
       '@popperjs/core': 2.11.8
       '@types/react': 17.0.53
       classnames: 2.3.2
       dom4: 2.1.6
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
-      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@17.0.2)(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
+      react-popper: 2.3.0(@popperjs/core@2.11.8)(react-dom@16.14.0)(react@17.0.2)
       tslib: 2.5.0
     dev: true
 
-  /@blueprintjs/select@4.9.24(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2):
+  /@blueprintjs/select@4.9.24(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-OTjesxH/7UZvM7yAdHJ5u3sIjX1N8Rs4CQQ22AfqNl82SIROqkuXI31XEl6YNX1GsYfmAMiw0K7XohEKOMXR5g==}
     peerDependencies:
       '@types/react': ^16.14.32 || 17 || 18
@@ -854,12 +860,12 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@blueprintjs/core': 4.20.2(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
-      '@blueprintjs/popover2': 1.14.11(@types/react@17.0.53)(react-dom@17.0.2)(react@17.0.2)
+      '@blueprintjs/core': 4.20.2(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
+      '@blueprintjs/popover2': 1.14.11(@types/react@17.0.53)(react-dom@16.14.0)(react@17.0.2)
       '@types/react': 17.0.53
       classnames: 2.3.2
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
       tslib: 2.5.0
     dev: true
 
@@ -3586,6 +3592,11 @@ packages:
     resolution: {integrity: sha512-iSq8ngPOt0K53A6eVr4d5Kn6GNrM2nQZtC740pzIriHtn4pOQ2lyzEXQMBeVcWERN0ye7fhBsk9PbLLQOnUx/g==}
     dev: true
 
+  /diff@3.5.0:
+    resolution: {integrity: sha512-A46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==}
+    engines: {node: '>=0.3.1'}
+    dev: true
+
   /diff@4.0.2:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
     engines: {node: '>=0.3.1'}
@@ -4390,6 +4401,10 @@ packages:
   /flat@5.0.2:
     resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
     hasBin: true
+    dev: true
+
+  /flatted@1.0.3:
+    resolution: {integrity: sha512-3JPwKDX4pKsnnuPtApEoD4HEy61R1gO6CN8XH5/wdA5i7TrhLKIB2lgHEb9ETGkigo9snd1iCSvvcjhFanyxvg==}
     dev: true
 
   /flatted@3.2.7:
@@ -6846,18 +6861,19 @@ packages:
       react: 17.0.2
     dev: true
 
-  /react-dom@17.0.2(react@17.0.2):
-    resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
+  /react-dom@16.14.0(react@17.0.2):
+    resolution: {integrity: sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==}
     peerDependencies:
-      react: 17.0.2
+      react: ^16.14.0
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+      prop-types: 15.8.1
       react: 17.0.2
-      scheduler: 0.20.2
+      scheduler: 0.19.1
     dev: true
 
-  /react-draggable@4.4.6(react-dom@17.0.2)(react@17.0.2):
+  /react-draggable@4.4.6(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-LtY5Xw1zTPqHkVmtM3X8MUOxNDOUhv/khTgBgrUvwaS064bwVvxT+q5El0uUFNx5IEPKXuRejr7UqLwBIg5pdw==}
     peerDependencies:
       react: '>= 16.3.0'
@@ -6866,7 +6882,7 @@ packages:
       clsx: 1.2.1
       prop-types: 15.8.1
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
     dev: true
 
   /react-fast-compare@3.2.2:
@@ -6908,7 +6924,7 @@ packages:
       warning: 4.0.3
     dev: true
 
-  /react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@17.0.2)(react@17.0.2):
+  /react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-e1hj8lL3uM+sgSR4Lxzn5h1GxBlpa4CQz0XLF8kx4MDrDRWY0Ena4c97PUeSX9i5W3UAfDP0z0FXCTQkoXUl3Q==}
     peerDependencies:
       '@popperjs/core': ^2.0.0
@@ -6917,19 +6933,19 @@ packages:
     dependencies:
       '@popperjs/core': 2.11.8
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
       react-fast-compare: 3.2.2
       warning: 4.0.3
     dev: true
 
-  /react-resizable@3.0.5(react-dom@17.0.2)(react@17.0.2):
+  /react-resizable@3.0.5(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-vKpeHhI5OZvYn82kXOs1bC8aOXktGU5AmKAgaZS4F5JPburCtbmDPqE7Pzp+1kN4+Wb81LlF33VpGwWwtXem+w==}
     peerDependencies:
       react: '>= 16.3'
     dependencies:
       prop-types: 15.8.1
       react: 17.0.2
-      react-draggable: 4.4.6(react-dom@17.0.2)(react@17.0.2)
+      react-draggable: 4.4.6(react-dom@16.14.0)(react@17.0.2)
     transitivePeerDependencies:
       - react-dom
     dev: true
@@ -6942,7 +6958,7 @@ packages:
       react: 17.0.2
     dev: true
 
-  /react-transition-group@4.4.5(react-dom@17.0.2)(react@17.0.2):
+  /react-transition-group@4.4.5(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
     peerDependencies:
       react: '>=16.6.0'
@@ -6953,20 +6969,36 @@ packages:
       loose-envify: 1.4.0
       prop-types: 15.8.1
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
     dev: true
 
-  /react-virtualized-auto-sizer@1.0.20(react-dom@17.0.2)(react@17.0.2):
+  /react-virtualized-auto-sizer@1.0.20(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-OdIyHwj4S4wyhbKHOKM1wLSj/UDXm839Z3Cvfg2a9j+He6yDa6i5p0qQvEiCnyQlGO/HyfSnigQwuxvYalaAXA==}
     peerDependencies:
       react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
       react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0-rc
     dependencies:
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
     dev: true
 
-  /react-window@1.8.9(react-dom@17.0.2)(react@17.0.2):
+  /react-visual-diff@0.4.3(prop-types@15.8.1)(react-dom@16.14.0)(react@17.0.2):
+    resolution: {integrity: sha512-66gN974h4dzAeelxvIXZxMpp9oWHT9Ct9++X0cNpn+jTvcqKTgcU8efJDTwhBX8n8rokrUu2+hJWaJMuTY1yOA==}
+    peerDependencies:
+      prop-types: ^15.5.4
+      react: ^15.0.0 || ^16.0.0
+      react-dom: ^15.0.0 || ^16.0.0
+    dependencies:
+      diff: 3.5.0
+      flatted: 1.0.3
+      lodash: 4.17.21
+      prop-types: 15.8.1
+      react: 17.0.2
+      react-dom: 16.14.0(react@17.0.2)
+      react-is: 16.13.1
+    dev: true
+
+  /react-window@1.8.9(react-dom@16.14.0)(react@17.0.2):
     resolution: {integrity: sha512-+Eqx/fj1Aa5WnhRfj9dJg4VYATGwIUP2ItwItiJ6zboKWA6EX3lYDAXfGF2hyNqplEprhbtjbipiADEcwQ823Q==}
     engines: {node: '>8.0.0'}
     peerDependencies:
@@ -6976,7 +7008,7 @@ packages:
       '@babel/runtime': 7.21.5
       memoize-one: 5.2.1
       react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 16.14.0(react@17.0.2)
     dev: true
 
   /react@17.0.2:
@@ -7191,6 +7223,10 @@ packages:
       glob: 10.3.10
     dev: true
 
+  /rough-notation@0.5.1:
+    resolution: {integrity: sha512-ITHofTzm13cWFVfoGsh/4c/k2Mg8geKgBCwex71UZLnNuw403tCRjYPQ68jSAd37DMbZIePXPjDgY0XdZi9HPw==}
+    dev: true
+
   /run-applescript@5.0.0:
     resolution: {integrity: sha512-XcT5rBksx1QdIhlFOCtgZkB99ZEouFZ1E2Kc2LHqNW13U3/74YGdkQRmThTwxy4QIyookibDKYZOPqX//6BlAg==}
     engines: {node: '>=12'}
@@ -7243,8 +7279,8 @@ packages:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
     dev: true
 
-  /scheduler@0.20.2:
-    resolution: {integrity: sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==}
+  /scheduler@0.19.1:
+    resolution: {integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==}
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
