@@ -150,6 +150,118 @@ export function ui(itemClassName: ItemClass) {
     },
   };
 
+  const EditView : ItemClassConfiguration<ItemClassSchema>['views']['editView'] = function(props) {
+
+    const data = props.itemData;
+
+    return (
+      <>
+        {props.children}
+
+        {
+          itemFields.map(field => {
+            switch (field.type) {
+              case 'uuid': {
+                return (
+                  <PropertyDetailView css={css`display: none;`} title={field.title} key={field.id}>
+                    {data[field.id] ? data[field.id] : <em>to be generated</em>}
+                  </PropertyDetailView>
+                );
+              }
+
+              case 'text': {
+                return (
+                  <PropertyDetailView title={field.title} key={field.id}>
+                    <InputGroup
+                      fill
+                      readOnly={!props.onChange}
+                      value={data[field.id] as string}
+                      // onChange={props.onChange
+                      //   ? ((evt: React.FormEvent<HTMLInputElement>) => handleIdentifierChange(evt.currentTarget.value))
+                      //   : undefined}
+                      {...textInputProps(props.itemData, props.onChange)(field.id)
+                      }
+                    />
+                  </PropertyDetailView>
+                );
+              }
+
+              case 'textarea': {
+                return (
+                  <PropertyDetailView title={field.title} key={field.id}>
+                    <TextArea
+                      css={css`min-width: 80ex;`}
+                      fill
+                      readOnly={!props.onChange}
+                      required
+                      value={data[field.id] as string}
+                      {...textInputProps(props.itemData, props.onChange)(field.id)} />
+                  </PropertyDetailView>
+                );
+              }
+
+              // TODO:
+              case 'itemClass': {
+                return (
+                  <PropertyDetailView title={field.title} key={field.id}>
+                    <InputGroup
+                      fill
+                      readOnly={!props.onChange}
+                      value={data[field.id] as string}
+                      // onChange={props.onChange
+                      //   ? ((evt: React.FormEvent<HTMLInputElement>) => handleIdentifierChange(evt.currentTarget.value))
+                      //   : undefined}
+                      {...textInputProps(props.itemData, props.onChange)(field.id)
+                      }
+                    />
+                  </PropertyDetailView>
+                );
+              }
+
+              // TODO:
+              case 'standardClass': {
+                return (
+                  <PropertyDetailView title={field.title} key={field.id}>
+                    <InputGroup
+                      fill
+                      readOnly={!props.onChange}
+                      value={data[field.id] as string}
+                      // onChange={props.onChange
+                      //   ? ((evt: React.FormEvent<HTMLInputElement>) => handleIdentifierChange(evt.currentTarget.value))
+                      //   : undefined}
+                      {...textInputProps(props.itemData, props.onChange)(field.id)
+                      }
+                    />
+                  </PropertyDetailView>
+                );
+              }
+
+              // TODO:
+              case 'datetime': {
+                return (
+                  data[field.id] ?
+                    <PropertyDetailView title={field.title} key={field.id}>
+                      <InputGroup
+                        fill
+                        readOnly={!props.onChange}
+                        value={data[field.id] as string}
+                        // onChange={props.onChange
+                        //   ? ((evt: React.FormEvent<HTMLInputElement>) => handleIdentifierChange(evt.currentTarget.value))
+                        //   : undefined}
+                        {...textInputProps(props.itemData, props.onChange)(field.id)
+                        }
+                      />
+                    </PropertyDetailView> :
+                    <></>
+                );
+              }
+            }
+          })
+        }
+      </>
+    )
+  };
+
   const itemClassConfiguration: ItemClassConfiguration<ItemClassSchema> = {
     meta : {
       title            : itemClass.title,
@@ -160,131 +272,8 @@ export function ui(itemClassName: ItemClass) {
     defaults : itemDefaults,
     views    : {
       listItemView : ListItemViewPrinter<ItemClassSchema>(listPrinter),
-      detailView   : (props) => {
-        const data = props.itemData;
-
-        return (
-          <>
-            {props.children}
-
-            {
-              itemFields.map(field => {
-                switch (field.type) {
-                  case 'uuid': {
-                    return (
-                      <PropertyDetailView inline title={field.title} key={field.id}>
-                        {data[field.id] ? data[field.id] : <em>to be generated</em>}
-                      </PropertyDetailView>
-                    );
-                  }
-
-                  case 'text': {
-                    return (
-                      <PropertyDetailView inline title={field.title} key={field.id}>
-                        {data[field.id]}
-                      </PropertyDetailView>
-                    );
-                  }
-
-                  case 'textarea': {
-                    return (
-                      <PropertyDetailView inline title={field.title} key={field.id}>
-                        {data[field.id]}
-                      </PropertyDetailView>
-                    );
-                  }
-
-                  // TODO:
-                  case 'itemClass': {
-                    return (
-                      <PropertyDetailView inline title={field.title} key={field.id}>
-                        {data[field.id]}
-                      </PropertyDetailView>
-                    );
-                  }
-
-                  // TODO:
-                  case 'standardClass': {
-                    return (
-                      <PropertyDetailView inline title={field.title} key={field.id}>
-                        {data[field.id]}
-                      </PropertyDetailView>
-                    );
-                  }
-
-                  // TODO:
-                  case 'datetime': {
-                    return (
-                        data[field.id] ?
-                        <PropertyDetailView inline title={field.title} key={field.id}>
-                          {data[field.id]}
-                        </PropertyDetailView> :
-                        <></>
-                    );
-                  }
-                }
-              })
-            }
-          </>
-        )
-      },
-      editView : (props) => (
-        <>
-          {
-            itemFields.map(field => {
-              switch (field.type) {
-                /** readonly */
-                case 'uuid': {
-                  return (
-                    <FormGroup label={`${field.title}:`} key={field.id}>
-                      {props.itemData[field.id] ? props.itemData[field.id] : <em>to be generated</em>}
-                    </FormGroup>
-                  );
-                }
-
-                case 'textarea': {
-                  return (
-                    <FormGroup label={`${field.title}:`} key={field.id}>
-                      <TextArea fill required value={props.itemData[field.id] as string}
-                        {...textInputProps(props.itemData, props.onChange)(field.id)} />
-                    </FormGroup>
-                  );
-                }
-
-                case 'text': {
-                  return (
-                    <FormGroup label={`${field.title}:`} key={field.id}>
-                      <InputGroup required value={props.itemData[field.id] as string}
-                        {...textInputProps(props.itemData, props.onChange)(field.id)} />
-                    </FormGroup>
-                  );
-                }
-
-                // TODO:
-                case 'itemClass': {
-                  return (
-                    <FormGroup label={`${field.title}:`} key={field.id}>
-                      <InputGroup required value={props.itemData[field.id] as string}
-                        {...textInputProps(props.itemData, props.onChange)(field.id)} />
-                    </FormGroup>
-                  );
-                }
-
-                // TODO:
-                case 'standardClass': {
-                  return (
-                    <FormGroup label={`${field.title}:`} key={field.id}>
-                      <InputGroup required value={props.itemData[field.id] as string}
-                        {...textInputProps(props.itemData, props.onChange)(field.id)} />
-                    </FormGroup>
-                  );
-                }
-              }
-            })
-          }
-
-        </>
-      ),
+      detailView   : EditView,
+      editView     : EditView,
     },
 
     validatePayload : async () => true,
