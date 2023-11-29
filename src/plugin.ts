@@ -1,4 +1,4 @@
-import { makeRegistryExtension, CRITERIA_CONFIGURATION } from '@riboseinc/paneron-registry-kit';
+import { CRITERIA_CONFIGURATION, makeRegistryExtension } from '@riboseinc/paneron-registry-kit';
 import { itemClassConfiguration } from '@/registryConfig';
 
 const defaultClassID = Object.keys(itemClassConfiguration)[0];

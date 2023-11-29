@@ -1,7 +1,14 @@
-import { ItemClassConfiguration } from '@riboseinc/paneron-registry-kit/types';
+import type {
+  ItemClassConfiguration,
+} from '@riboseinc/paneron-registry-kit/types';
 
-import { itemClasses } from '@/classes';
-import { ui } from '@/uiGenerator';
+import {
+  itemClasses,
+} from '@/classes';
+
+import {
+  ui,
+} from '@/uiGenerator';
 
 export const itemClassConfiguration: Record<string, ItemClassConfiguration<any>> =
   itemClasses.reduce((acc, itemClass) => {

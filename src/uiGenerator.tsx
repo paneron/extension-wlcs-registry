@@ -1,10 +1,21 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import { jsx } from '@emotion/react';
+import {
+  css,
+  jsx,
+} from '@emotion/react';
 import React from 'react';
-import { PropertyDetailView } from '@riboseinc/paneron-registry-kit/views/util';
-import { ItemClassConfiguration } from '@riboseinc/paneron-registry-kit/types';
+
+import {
+  GenericRelatedItemView,
+  PropertyDetailView,
+} from '@riboseinc/paneron-registry-kit/views/util';
+
+import type {
+  InternalItemReference,
+  ItemClassConfiguration,
+} from '@riboseinc/paneron-registry-kit/types';
 
 import {
   FormGroup,
@@ -61,10 +72,10 @@ export interface MapSchemaTypes {
 
 export function itemFieldsToMappableSchemaTypes(itemFields: FieldConfiguration[]):
 Record<string, keyof MapSchemaTypes> {
-  return itemFields.reduce((acc, field) => {
+  return itemFields.reduce<Record<string, keyof MapSchemaTypes>>((acc, field) => {
     acc[field.id] = field.type;
     return acc;
-  }, {} as Record<string, keyof MapSchemaTypes>);
+  }, {});
 }
 
 /**
