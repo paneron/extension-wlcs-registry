@@ -100,10 +100,10 @@ var rules = {
     },
   ],
   'camelcase' : ['warn'],
-  'new-cap'   : ['warn'],
   'max-len'   : ['warn', {
     code : 140,
   }],
+  'new-cap' : ['warn'],
 
   'key-spacing' : [
     'error',
