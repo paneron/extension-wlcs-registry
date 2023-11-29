@@ -16,5 +16,5 @@ export default makeRegistryExtension({
   name                  : 'Written Language Conversion System Registry',
   itemClassConfiguration,
   defaultSearchCriteria : defaultSearchCriteria as any,
-  keyExpression         : 'obj.data.identifier || `${obj.data.terms?.[0]?.designation}-${obj.id}` || obj.id',
+  keyExpression         : 'obj.data.uuid || obj.id',
 });
