@@ -144,13 +144,26 @@ var rulesForEmotion = {
   '@emotion/styled-import'       : 'error',
 };
 
+var rulesForBlueprintJs = {
+  '@typescript-eslint/tslint/config'  : ['off'],
+  'react/jsx-boolean-value'           : ['warn', 'never'],
+  'header/header'                     : ['off'],
+  'import/no-extraneous-dependencies' : ['off'],
+  'import/no-default-export'          : ['off'],
+  'import/order'                      : ['off'],
+  'no-duplicate-imports'              : ['off'],
+  'no-template-curly-in-string'       : ['off'],
+  'sort-imports'                      : ['warn'],
+};
+
 
 var rules = Object.assign(
   {},
   rulesForJs,
   rulesForTypescript,
   rulesForReact,
-  rulesForEmotion
+  rulesForEmotion,
+  rulesForBlueprintJs
 );
 
 module.exports = {
