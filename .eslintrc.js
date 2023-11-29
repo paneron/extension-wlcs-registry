@@ -151,6 +151,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:react/recommended',
         'plugin:@typescript-eslint/strict',
+        '@blueprintjs/eslint-config',
         // "plugin:prettier/recommended",
       ],
       'parser'        : '@typescript-eslint/parser',
