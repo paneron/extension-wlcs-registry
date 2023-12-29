@@ -2,10 +2,25 @@
 /** @jsxFrag React.Fragment */
 
 import {
+  logger,
+} from '@/logger';
+
+const {
+  log,
+  error,
+  debug,
+  warn,
+  info,
+} = logger();
+
+import {
   css,
   jsx,
 } from '@emotion/react';
-import React from 'react';
+
+import React, {
+  useCallback,
+} from 'react';
 
 import {
   GenericRelatedItemView,
@@ -34,63 +49,79 @@ import {
   textInputProps
 } from '@/classes/common';
 
+// import {
+//   classes,
+//   classesPresentation,
+// } from '@/classes';
+
+// import type {
+//   ItemClass,
+//   ItemMetaClass,
+//   FieldName,
+//   StandardClass,
+//   StandardClassType,
+//   ItemClassType,
+//   // SpecializedFieldType,
+//   FieldType,
+//   FieldTypeSpecialization,
+//   FieldConfiguration,
+//   ClassConfiguration,
+//   ClassPresentationConfiguration,
+//   ItemClassSchemaFields,
+//   ItemClassFieldConfiguration,
+// } from '@/classes';
+
 import {
-  classes,
-  classesPresentation,
+  itemFieldsToMappableSchemaTypes,
 } from '@/classes';
 
 import type {
-  ItemClass,
-  ItemMetaClass,
-  FieldName,
-  StandardClass,
-  StandardClassType,
-  ItemClassType,
-  // SpecializedFieldType,
-  FieldType,
-  FieldTypeSpecialization,
-  FieldConfiguration,
-  ClassConfiguration,
-} from '@/classes';
+  MapSchema,
+  MapSchemaTypes,
+} from '@/uiTypeBridge';
 
+import type {
+  GenericFieldConfiguration,
+  ExternalReferenceClassFieldConfiguration,
+  InternalReferenceClassFieldConfiguration,
+} from '@/schemaLoader';
 
-// https://stackoverflow.com/questions/45771307/typescript-dynamically-create-interface
-export interface MapSchemaTypes {
-  uuid: string;
-  string: string;
-  text: string;
-  textarea: string;
-  number: number;
-  boolean: boolean;
-  date: Date;
-  time: Date;
-  datetime: Date;
-  standardClass: string; // ID for standard
-  itemClass: string; // ID for item
-  list: any[];
-}
+export const timestamp: string = new Date().toISOString();
 
-export function itemFieldsToMappableSchemaTypes(itemFields: FieldConfiguration[]):
-Record<string, keyof MapSchemaTypes> {
-  return itemFields.reduce<Record<string, keyof MapSchemaTypes>>((acc, field) => {
-    acc[field.id] = field.type;
-    return acc;
-  }, {});
-}
+const getClassId = (field: InternalReferenceClassFieldConfiguration | ExternalReferenceClassFieldConfiguration): string => {
+  return field.typeParam;
+};
 
-/**
- * Expects an object mapping from field name to field type (those that are the
- * keys of MapSchemaTypes).
- */
-type MapSchema<T extends Record<string, keyof MapSchemaTypes>> = {
-  -readonly [K in keyof T]: MapSchemaTypes[T[K]]
-}
+import {
+  classSchemaJSONDeserializer,
+  // isClassSchema,
+} from '@/schemaLoader';
 
-export function ui(itemClassName: ItemClass) {
+import _classesJSON from '@/schemas/iso24229-registry-schema.json';
+
+const classesJSONString = JSON.stringify(_classesJSON);
+
+const serializedClasses = classSchemaJSONDeserializer(classesJSONString);
+
+log('jsonstring', classesJSONString);
+log('serializedClasses', serializedClasses);
+
+// const classes = isClassSchema(classesJSON) ? classesJSON : new Error('classesJSON is not a class schema');
+
+// TODO: read from schema as a string without using node JS API:
+
+export function ui(itemClassName: string) {
+
+  if (serializedClasses.error) {
+    error(serializedClasses.error);
+    return undefined;
+  }
+  const classes = serializedClasses.result;
   const itemClass = classes[itemClassName];
-  const itemClassPresentation = classesPresentation[itemClassName];
+  const itemClassPresentation = itemClass.presentation;
 
-  const itemFields = itemClass.fields;
+  // const itemFields: FieldConfiguration[] = [ ...itemClass.fields ];
+  const itemFields: GenericFieldConfiguration[] = [ ...itemClass.fields ];
 
   const interfaces = itemClass.interfaces;
 
@@ -126,33 +157,63 @@ export function ui(itemClassName: ItemClass) {
   const itemClassSchemaTypes = itemFieldsToMappableSchemaTypes(itemFields);
 
   type ItemClassSchema = MapSchema<typeof itemClassSchemaTypes>;
+  // type ItemClassSchema = ItemClassSchemaFields<ItemClass>;
 
   // Set empty string as default for now
-  const itemDefaults = itemClass.fields.reduce((acc, field) => {
+  const itemDefaults = itemFields.reduce((acc, field) => {
     return {
       ...acc,
       [field.id] : '',
     };
   }, {});
 
-  const identifierField = itemClass.fields[0];
-
   const listPrinter: ListPrinter<ItemClassSchema> = {
     identifier(itemData) {
-      return typeof itemClassPresentation.identifier !== 'undefined' ?
-        itemClassPresentation.identifier(itemData) :
-        itemData[identifierField.id] as string;
+      return typeof itemClassPresentation.list.identifier.field !== 'undefined' ?
+        itemData[itemClassPresentation.list.identifier.field] as string :
+        itemClassPresentation.list.identifier.value;
     },
     name(itemData) {
-      return typeof itemClassPresentation.name !== 'undefined' ?
-        itemClassPresentation.name(itemData) :
-        itemData.name as string;
+      return typeof itemClassPresentation.list.name.field !== 'undefined' ?
+        itemData[itemClassPresentation.list.name.field] as string :
+        itemClassPresentation.list.name.value;
     },
   };
 
   const EditView : ItemClassConfiguration<ItemClassSchema>['views']['editView'] = function(props) {
 
     const data = props.itemData;
+
+    const onClearItemClass = useCallback(() => {
+      log('hello from onClearItemClass', props);
+      if (!props.onChange) {
+        throw new Error(`Cannot clear ${props.className ?? 'field'} (read-only)`);
+      }
+
+      props.onChange({ ...props.itemData });
+    }, [props]);
+
+    const onCreateNewItemClass = useCallback(async (ic: string) => {
+      log('hello from onCreateNewItemClass', props);
+      if (!props.onChange) {
+        throw new Error(`Cannot create ${props.className ?? 'field'} (read-only)`);
+      }
+
+      if (props.onCreateRelatedItem) {
+        const itemRef = await props.onCreateRelatedItem(ic);
+        props.onChange({ ...props.itemData });
+        return itemRef;
+      }
+    }, [props]);
+
+    const onChangeItemClass = useCallback(() => {
+      log('hello from onChangeItemClass', props);
+      if (!props.onChange) {
+        throw new Error(`Cannot change ${props.className ?? 'field'} (read-only)`);
+      }
+
+      props.onChange({ ...props.itemData });
+    }, [props]);
 
     return (
       <>
@@ -164,6 +225,7 @@ export function ui(itemClassName: ItemClass) {
               case 'uuid': {
                 return (
                   <PropertyDetailView css={css`display: none;`} title={field.title} key={field.id}>
+                    {timestamp}
                     {data[field.id] ? data[field.id] : <em>to be generated</em>}
                   </PropertyDetailView>
                 );
@@ -172,6 +234,7 @@ export function ui(itemClassName: ItemClass) {
               case 'text': {
                 return (
                   <PropertyDetailView title={field.title} key={field.id}>
+                    {timestamp}
                     <InputGroup
                       fill
                       readOnly={!props.onChange}
@@ -189,6 +252,7 @@ export function ui(itemClassName: ItemClass) {
               case 'textarea': {
                 return (
                   <PropertyDetailView title={field.title} key={field.id}>
+                    {timestamp}
                     <TextArea
                       css={css`min-width: 80ex;`}
                       fill
@@ -201,27 +265,26 @@ export function ui(itemClassName: ItemClass) {
               }
 
               // TODO:
-              case 'itemClass': {
+              case 'internalReferenceClass': {
                 return (
                   <PropertyDetailView title={field.title} key={field.id}>
-                    <InputGroup
-                      fill
-                      readOnly={!props.onChange}
-                      value={data[field.id] as string}
-                      // onChange={props.onChange
-                      //   ? ((evt: React.FormEvent<HTMLInputElement>) => handleIdentifierChange(evt.currentTarget.value))
-                      //   : undefined}
-                      {...textInputProps(props.itemData, props.onChange)(field.id)
-                      }
+                    {timestamp}
+                    <GenericRelatedItemView
+                      itemRef={{ classID : getClassId(field), itemID : data[field.id as string] as string ?? '' }}
+                      onClear={typeof props.onChange !== 'undefined' ? onClearItemClass : undefined}
+                      onChange={typeof props.onChange !== 'undefined' ? onChangeItemClass : undefined}
+                      onCreateNew={props.onCreateRelatedItem && props.onChange ? onCreateNewItemClass(getClassId(field) as string) as any : undefined}
                     />
+
                   </PropertyDetailView>
                 );
               }
 
               // TODO:
-              case 'standardClass': {
+              case 'externalReferenceClass': {
                 return (
                   <PropertyDetailView title={field.title} key={field.id}>
+                    {timestamp}
                     <InputGroup
                       fill
                       readOnly={!props.onChange}

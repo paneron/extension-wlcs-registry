@@ -12,6 +12,10 @@ import {
 
 export const itemClassConfiguration: Record<string, ItemClassConfiguration<any>> =
   itemClasses.reduce((acc, itemClass) => {
-    acc[itemClass] = ui(itemClass);
+    const result = ui(itemClass);
+    if (typeof result === 'undefined') {
+      return acc;
+    }
+    acc[itemClass] = result;
     return acc;
   }, {} as Record<string, ItemClassConfiguration<any>>);
