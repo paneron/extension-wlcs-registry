@@ -27,7 +27,7 @@
     "build2": "pnpm run build; pnpm run build:esm",
     "prebuild": "rm -rf ${npm_package_dist_dir}/; mkdir ${npm_package_dist_dir}/; cp package.json ${npm_package_dist_dir}/;",
     "prebuild:watch": "pnpm run prebuild",
-    "build:cjs": "swc ${npm_package_src_dir} --sync --ignore '*.test.*' --out-dir ${npm_package_dist_dir} --copy-files --extensions '.ts,.tsx,.js,.jsx,.json'",
+    "build:cjs": "swc ${npm_package_src_dir} --sync --ignore '*.test.*' --out-dir ${npm_package_dist_dir} --copy-files --extensions '.ts,.tsx,.js,.jsx'",
     "build:esm": "esbuild src/plugin.ts --outfile=dist/test.js --format=esm --bundle \"--external:@riboseinc/*\" \"--external:react-mathjax2\" \"--external:react-dom\" \"--external:react\" \"--external:liquidjs\"  \"--external:@blueprintjs/*\" \"--external:@emotion/*\" \"--external:immutability-helper\" --minify=false --sourcemap=inline --target=chrome94",
     "build:watch": "pnpm run build --watch",
     "build2:watch": "pnpm run build2 --watch",

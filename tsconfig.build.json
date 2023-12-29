@@ -5,7 +5,8 @@
     "isolatedModules": true
   },
   "include": [
-    "src"
+    "src",
+    "src/schemas/**.json"
   ],
   "exclude": [
     "paneron-for-tests/",
