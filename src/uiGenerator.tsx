@@ -110,6 +110,8 @@ log('serializedClasses', serializedClasses);
 
 // TODO: read from schema as a string without using node JS API:
 
+function noop() {}
+
 export function ui(itemClassName: string) {
 
   if (serializedClasses.error) {
@@ -271,9 +273,13 @@ export function ui(itemClassName: string) {
                     {timestamp}
                     <GenericRelatedItemView
                       itemRef={{ classID : getClassId(field), itemID : data[field.id as string] as string ?? '' }}
-                      onClear={typeof props.onChange !== 'undefined' ? onClearItemClass : undefined}
-                      onChange={typeof props.onChange !== 'undefined' ? onChangeItemClass : undefined}
-                      onCreateNew={props.onCreateRelatedItem && props.onChange ? onCreateNewItemClass(getClassId(field) as string) as any : undefined}
+                      onClear={typeof props.onChange !== 'undefined' ? onClearItemClass : noop}
+                      onChange={typeof props.onChange !== 'undefined' ? onChangeItemClass : noop}
+                      onCreateNew={
+                        props.onCreateRelatedItem && props.onChange ?
+                          onCreateNewItemClass(getClassId(field) as string) as any :
+                          undefined
+                      }
                     />
 
                   </PropertyDetailView>
