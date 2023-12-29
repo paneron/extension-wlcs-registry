@@ -1,0 +1,291 @@
+{
+  "authority": {
+    "title": "Authority",
+    "description": "Conversion System Authority",
+    "id": "authority",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "authorityIdentifier"
+        },
+        "name": {
+          "field": "name"
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "authorityIdentifier",
+        "title": "Authority Identifier",
+        "type": "text"
+      },
+      {
+        "id": "name",
+        "title": "Name",
+        "type": "text"
+      }
+    ]
+  },
+  "code-status": {
+    "title": "Code Status",
+    "description": "Conversion System Code Status",
+    "id": "code-status",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "codeStatus"
+        },
+        "name": {
+          "value": ""
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "codeStatus",
+        "title": "Code Status",
+        "type": "text"
+      }
+    ]
+  },
+  "spelling-system": {
+    "title": "Spelling System",
+    "description": "Conversion Spelling System",
+    "id": "spelling-system",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "code"
+        },
+        "name": {
+          "value": ""
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "code",
+        "title": "Code",
+        "type": "generated-text",
+        "generator": {
+          "language": "javascript",
+          "code": "(o) => [o.languageCode, o.scriptCode, o.countryCode, o.extension].filter(Boolean).join('-')"
+        }
+      },
+      {
+        "id": "languageCode",
+        "title": "Language Code",
+        "type": "externalReferenceClass",
+        "typeParam": "ISO15924",
+        "optional": true
+      },
+      {
+        "id": "scriptCode",
+        "title": "Script Code",
+        "type": "externalReferenceClass",
+        "typeParam": "ISO639"
+      },
+      {
+        "id": "countryCode",
+        "title": "Country Code",
+        "type": "externalReferenceClass",
+        "typeParam": "ISO3166",
+        "optional": true
+      },
+      {
+        "id": "extension",
+        "title": "Extension",
+        "type": "text"
+      }
+    ]
+  },
+  "system-code": {
+    "title": "System Code",
+    "description": "Conversion System Code",
+    "id": "system-code",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "code"
+        },
+        "name": {
+          "field": "name"
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "code",
+        "title": "Code",
+        "type": "generated-text",
+        "generator": {
+          "language": "javascript",
+          "code": "(o) => [o.authority, o.sourceSpelling, o.targetSpelling, o.extension].filter(Boolean).join(':')"
+        }
+      },
+      {
+        "id": "name",
+        "title": "Name",
+        "type": "text"
+      },
+      {
+        "id": "authority",
+        "title": "Authority",
+        "type": "internalReferenceClass",
+        "typeParam": "authority"
+      },
+      {
+        "id": "sourceSpelling",
+        "title": "Source Spelling System",
+        "type": "internalReferenceClass",
+        "typeParam": "spelling-system"
+      },
+      {
+        "id": "targetSpelling",
+        "title": "Target Spelling System",
+        "type": "internalReferenceClass",
+        "typeParam": "spelling-system"
+      },
+      {
+        "id": "identifyingSegment",
+        "title": "Identifying Segment",
+        "type": "text"
+      },
+      {
+        "id": "relations",
+        "title": "Relations",
+        "isList": true,
+        "type": "internalReferenceClass",
+        "typeParam": "system-relation"
+      },
+      {
+        "id": "codeStatus",
+        "title": "Code Status",
+        "type": "internalReferenceClass",
+        "typeParam": "code-status"
+      },
+      {
+        "id": "systemStatus",
+        "title": "System Status",
+        "type": "internalReferenceClass",
+        "typeParam": "system-status"
+      }
+    ]
+  },
+  "system-relation": {
+    "title": "Relation",
+    "description": "Conversion System Relation",
+    "id": "system-relation",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "code"
+        },
+        "name": {
+          "field": "name"
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "code",
+        "title": "Code",
+        "type": "generated-text",
+        "generator": {
+          "language": "javascript",
+          "code": "(o) => [o.type, o.targetSystem].join('')"
+        }
+      },
+      {
+        "id": "type",
+        "title": "Relation Type",
+        "type": "text"
+      },
+      {
+        "id": "targetSystem",
+        "title": "Target System",
+        "type": "internalReferenceClass",
+        "typeParam": "system-code"
+      }
+    ]
+  },
+  "system-relation-type": {
+    "title": "System Relation Type",
+    "description": "Conversion System Relation Type",
+    "id": "system-relation-type",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "systemRelationType"
+        },
+        "name": {
+          "value": ""
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "systemRelationType",
+        "title": "System Relation Type",
+        "type": "text"
+      }
+    ]
+  },
+  "system-status": {
+    "title": "System Status",
+    "description": "Conversion System Status",
+    "id": "system-status",
+    "interfaces": [
+      "uuidentifiable",
+      "timestampable",
+      "remarkable"
+    ],
+    "presentation": {
+      "list": {
+        "identifier": {
+          "field": "systemStatus"
+        },
+        "name": {
+          "value": ""
+        }
+      }
+    },
+    "fields": [
+      {
+        "id": "systemStatus",
+        "title": "System Status",
+        "type": "text"
+      }
+    ]
+  }
+}
